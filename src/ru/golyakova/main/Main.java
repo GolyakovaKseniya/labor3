@@ -488,7 +488,20 @@ public class Main {
                 case "7.3":{
                     if(args.length >= 2){
                         calculatePowerFromArgs(args);
+                    }else{
+                        try {
+                            System.out.print("Введите основание (X): ");
+                            String xStr = scanner.nextLine().trim();
+                            System.out.print("Введите показатель степени (Y): ");
+                            String yStr = scanner.nextLine().trim();
+                            double result = PowerCalculator.calculatePowerSafe(xStr,yStr);
+                            System.out.println("Ответ:");
+                            System.out.println(xStr + " ^ " + yStr + " = " + result);
+                        }catch (IllegalArgumentException e){
+                            System.out.println("Ошибка, : " + e.getMessage());
+                        }
                     }
+                    break;
                 }
                 case "0":{
                     System.out.println("Выход");

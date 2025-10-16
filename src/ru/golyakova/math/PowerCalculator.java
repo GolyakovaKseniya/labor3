@@ -8,4 +8,11 @@ public class PowerCalculator {
         int y = parseInt(yStr);
         return pow(x,y);
     }
+    public static double calculatePowerSafe(String xStr, String yStr){
+        try {
+            return calculatePower(xStr,yStr);
+        }catch (NumberFormatException e){
+            throw new IllegalArgumentException("Ошибка: X и Y должны быть целыми числами");
+        }
+    }
 }
