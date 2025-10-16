@@ -12,7 +12,7 @@ public class PowerCalculator {
         try {
             return calculatePower(xStr,yStr);
         }catch (NumberFormatException e){
-            throw new IllegalArgumentException("Ошибка: X и Y должны быть целыми числами");
+            throw new IllegalArgumentException("Ошибка: x и y должны быть целыми числами");
         }
     }
 }

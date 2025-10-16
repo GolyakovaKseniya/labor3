@@ -498,7 +498,7 @@ public class Main {
                             System.out.println("Ответ: ");
                             System.out.println(xStr + " ^ " + yStr + " = " + result);
                         }catch (IllegalArgumentException e){
-                            System.out.println("Ошибка, : " + e.getMessage());
+                            System.out.println("Ошибка : " + e.getMessage());
                         }
                     }
                     break;
