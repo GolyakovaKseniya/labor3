@@ -1,6 +1,6 @@
 package ru.golyakova.geometry;
 
-public class Point3D extends Point2D {
+public final class Point3D extends Point2D {
     private final double z;
 
     public double getZ() {

@@ -1,15 +1,23 @@
 package ru.golyakova.geometry;
 
 public class Point2D {
-    private final double x;
-    private final double y;
+    private double x;
+    private double y;
 
-    public final double getX() {
+    public double getX() {
         return x;
     }
 
-    public final double getY() {
+    public double getY() {
         return y;
+    }
+
+    public void setX(double x){
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 
     public Point2D(double x, double y){
