@@ -506,11 +506,8 @@ public class Main {
                     break;
                 }
                 case "8.4":{
-                    System.out.print("Введите координату X: ");
-                    double x = scanner.nextDouble();
-
-                    System.out.print("Введите координату Y: ");
-                    double y = scanner.nextDouble();
+                    double x = Validator.readDouble(scanner,"Введите координату Х: ");
+                    double y = Validator.readDouble(scanner,"Введите координату Y: ");
                     Point original = new Point(x, y);
                     System.out.println("Создана точка: " + original);
 
@@ -520,6 +517,9 @@ public class Main {
 
                     System.out.println("Это разные объекты: " + (original != clone));
                     System.out.println("Координаты одинаковы: " + original.equals(clone));
+                    if (scanner.hasNextLine()) {
+                        scanner.nextLine();
+                    }
                     break;
                 }
                 case "0":{
