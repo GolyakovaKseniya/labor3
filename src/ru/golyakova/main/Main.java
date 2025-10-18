@@ -6,6 +6,7 @@ import ru.golyakova.birds.Parrot;
 import ru.golyakova.birds.Sparrow;
 import ru.golyakova.city.*;
 import ru.golyakova.geometry.Point3D;
+import ru.golyakova.geometry.Point;
 import ru.golyakova.math.PowerCalculator;
 import ru.golyakova.validate.Validator;
 import ru.golyakova.exceptions.*;
@@ -27,6 +28,7 @@ public class Main {
             System.out.println("Задача 4.3");
             System.out.println("Задача 5.9");
             System.out.println("Задача 7.3");
+            System.out.println("Задача 8.4");
             System.out.println("0 - Выход");
             System.out.print("Ваш выбор: ");
             String input = scanner.nextLine();
@@ -501,6 +503,23 @@ public class Main {
                             System.out.println("Ошибка : " + e.getMessage());
                         }
                     }
+                    break;
+                }
+                case "8.4":{
+                    System.out.print("Введите координату X: ");
+                    double x = scanner.nextDouble();
+
+                    System.out.print("Введите координату Y: ");
+                    double y = scanner.nextDouble();
+                    Point original = new Point(x, y);
+                    System.out.println("Создана точка: " + original);
+
+                    // Клонирование
+                    Point clone = original.clone();
+                    System.out.println("Создан клон: " + clone);
+
+                    System.out.println("Это разные объекты: " + (original != clone));
+                    System.out.println("Координаты одинаковы: " + original.equals(clone));
                     break;
                 }
                 case "0":{

@@ -1,6 +1,6 @@
 package ru.golyakova.geometry;
 
-public class Point {
+public class Point implements Cloneable {
     private double x;
     private double y;
 
@@ -20,14 +20,38 @@ public class Point {
         this.y = y;
     }
 
+    String packageInfo;
+    protected int protectedId;
     public Point(double x, double y){
         this.x = x;
         this.y = y;
+        this.packageInfo = "default";
+        this.protectedId = 0;
     }
-
+    //package-private конструктор
+    Point(double x, double y, String info){
+        this.x = x;
+        this.y = y;
+        this.packageInfo = info;
+        this.protectedId = 0;
+    }
+    protected Point(double x, double y, int id){
+        this.x = x;
+        this.y = y;
+        this.packageInfo = "default";
+        this.protectedId = id;
+    }
     @Override
     public String toString() {
         return "{" + x + ";" + y + "}";
+    }
+
+    public Point clone(){
+        try {
+            return (Point) super.clone();
+        }catch (CloneNotSupportedException e){
+            throw new AssertionError("Клонирование не поддерживается");
+        }
     }
 
     @Override
