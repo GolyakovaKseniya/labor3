@@ -4,6 +4,7 @@ import ru.golyakova.validate.Validator;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class City {
     private String name;
@@ -50,57 +51,19 @@ public class City {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if( this == obj){
+            return true;
+        }
+        if(obj == null || !(obj instanceof City)){
+            return false;
+        }
+        City other = (City) obj;
+        return Objects.equals(this.roads, other.roads);
+    }
+
+    @Override
     public String toString() {
         return "Город " + name;
     }
 }
-//class RoadSystemException extends RuntimeException{
-//    public RoadSystemException(String message){
-//        super(message);
-//    }
-//}
-//class RoadAlreadyExistsException extends RoadSystemException{
-//    public RoadAlreadyExistsException(String message){
-//        super(message);
-//    }
-//}
-//class RoadNotFoundException extends RoadSystemException{
-//    public RoadNotFoundException(String message){
-//        super(message);
-//    }
-//}
-//class CityNotFoundException extends RoadNotFoundException{
-//    public CityNotFoundException(String message){
-//        super(message);
-//    }
-//}
-//class InvalidInputException extends RoadSystemException{
-//    public InvalidInputException(String message){
-//        super(message);
-//    }
-//}
-//class EmptyCityNameException extends RoadSystemException{
-//    public EmptyCityNameException(String message){
-//        super(message);
-//    }
-//}
-//class NotEnoughCityException extends RoadSystemException{
-//    public NotEnoughCityException(String message){
-//        super(message);
-//    }
-//}
-//class InvalidNumberException extends RoadSystemException{
-//    public InvalidNumberException(String message){
-//        super(message);
-//    }
-//}
-//class InvalidCityException extends RoadSystemException{
-//    public InvalidCityException(String message){
-//        super(message);
-//    }
-//}
-//class SameCityException extends RoadSystemException{
-//    public SameCityException(String message){
-//        super(message);
-//    }
-//}

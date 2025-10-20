@@ -14,7 +14,7 @@ public class Parrot extends Bird {
             System.out.println(text);
         }else{
             int n = getRandom().nextInt(text.length()) + 1;
-            String song = text.substring(0, n);
+            String song = text.substring(0, n); //извлекаем подстроку
             System.out.println(song);
         }
     }

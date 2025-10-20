@@ -26,7 +26,7 @@ public class CityAdapter implements CityInterface {
     @Override
     public void addRoad(CityInterface otherCity, int cost) {
         if(otherCity instanceof CityAdapter){
-            City originalOtherCity = ((CityAdapter) otherCity).getOriginalCity();
+            City originalOtherCity = ((CityAdapter) otherCity).getOriginalCity(); //приводим к типу
             city.addRoad(originalOtherCity,cost);
         }else if (otherCity instanceof BidirectCityAdapter) {
             BidirectionalCity originalOtherCity = ((BidirectCityAdapter) otherCity).getOriginalCity();

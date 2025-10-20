@@ -7,6 +7,13 @@ public final class BidirectionalCity extends City {
         super(name);
     }
 
+    private void superAddRoad(City city, int cost){
+        super.addRoad(city, cost);
+    }
+    private void superRemoveRoad(City city) {
+        super.removeRoad(city);
+    }
+
     @Override
     public void addRoad(City city, int cost) {
         Validator.validCity(city, this);
@@ -42,12 +49,7 @@ public final class BidirectionalCity extends City {
             }
         }
     }
-    private void superAddRoad(City city, int cost){
-        super.addRoad(city, cost);
-    }
-    private void superRemoveRoad(City city) {
-        super.removeRoad(city);
-    }
+
 
     @Override
     public final String toString() {

@@ -46,6 +46,7 @@ public class Point implements Cloneable {
         return "{" + x + ";" + y + "}";
     }
 
+    @Override
     public Point clone(){
         try {
             return (Point) super.clone();

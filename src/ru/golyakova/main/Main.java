@@ -12,12 +12,10 @@ import ru.golyakova.validate.Validator;
 import ru.golyakova.exceptions.*;
 import java.util.*;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Map<String, City> cities = new HashMap<>();
+//        Map<String, City> cities = new HashMap<>();
         Map<String, CityInterface> cities1 = new HashMap<>();
         boolean flag1 = false;
         while (!flag1) {
@@ -27,6 +25,7 @@ public class Main {
             System.out.println("Задача 3.5");
             System.out.println("Задача 4.3");
             System.out.println("Задача 5.9");
+            System.out.println("Задача 6.5");
             System.out.println("Задача 7.3");
             System.out.println("Задача 8.4");
             System.out.println("0 - Выход");
@@ -34,6 +33,7 @@ public class Main {
             String input = scanner.nextLine();
             switch (input) {
                 case "1.10": {
+                    Map<String, City> cities = new HashMap<>();
                     boolean flag = false;
                     while (!flag) {
                         try {
@@ -56,16 +56,15 @@ public class Main {
                                     break;
                                 }
                                 case "2":{
-                                    System.out.print("Введите название города: ");
-                                    String name = scanner.nextLine();
+                                    String name = Validator.readAndValidCityName(scanner,"Введите название города: " );
                                     Map<String,Integer> roads = new HashMap<>();
                                     System.out.print("Сколько ввести дорог для города: ");
                                     String roadCountInput = scanner.nextLine();
                                     int roadCount = Validator.validPositiveNumber(roadCountInput);
                                     for(int i = 1; i<=roadCount; i++){
                                         System.out.println("Добавление дороги: " + i + " из " + roadCount + " : ");
-                                        System.out.print("Введите город назначения: ");
-                                        String toCity = scanner.nextLine();
+                                        String toCity = Validator.readAndValidCityName(scanner, "Введите город назначения: ");
+                                        Validator.validDifferentCity(name, toCity);
                                         System.out.print("Введите стоимость: ");
                                         String costInput = scanner.nextLine();
                                         int cost = Validator.validPositiveNumber(costInput);
@@ -151,6 +150,7 @@ public class Main {
                     break;
                 }
                 case "3.3":{
+                    Map<String, City> cities = new HashMap<>();
                     boolean flag = false;
                     while (!flag) {
                         try {
@@ -177,16 +177,15 @@ public class Main {
                                 }
                                 case "2":{
                                     try {
-                                        System.out.print("Введите название города: ");
-                                        String name = scanner.nextLine();
+                                        String name = Validator.readAndValidCityName(scanner, "Введите название города: ");
                                         Map<String,Integer> roads = new HashMap<>();
                                         System.out.print("Сколько ввести дорог для города: ");
                                         String roadCountInput = scanner.nextLine();
                                         int roadCount = Validator.validPositiveNumber(roadCountInput);
                                         for(int i = 1; i<=roadCount; i++){
                                             System.out.println("Добавление дороги: " + i + " из " + roadCount + " : ");
-                                            System.out.print("Введите город назначения: ");
-                                            String toCity = scanner.nextLine();
+                                            String toCity = Validator.readAndValidCityName(scanner, "Введите город назначения: ");
+                                            Validator.validDifferentCity(name, toCity);
                                             System.out.print("Введите стоимость: ");
                                             String costInput = scanner.nextLine();
                                             int cost = Validator.validPositiveNumber(costInput);
@@ -421,14 +420,11 @@ public class Main {
                                 case "2":{
                                     try {
                                         Validator.validEnoughCity(cities1.size(), 2, "добавления дороги");
-                                        System.out.print("Введите город отправления: ");
-                                        String from = scanner.nextLine().trim();
-                                        System.out.print("Введите город назначения: ");
-                                        String to = scanner.nextLine().trim();
-
+                                        String from = Validator.readAndValidCityName(scanner,"Введите город отправления: ");
+                                        String to = Validator.readAndValidCityName(scanner,"Введите город назначения: ");
+                                        Validator.validDifferentCity(from, to);
                                         CityInterface fromCity = cities1.get(from);
                                         CityInterface toCity = cities1.get(to);
-
                                         if(fromCity.hasRoadTo(toCity.getName())){
                                             System.out.println("Дорога из " + fromCity.getName() + " в " + toCity.getName() + " уже существует!");
                                             break;
@@ -486,15 +482,16 @@ public class Main {
                             System.out.println("Ошибка: " + e.getMessage());
                         }
                     }
+                    break;
                 }
                 case "7.3":{
                     if(args.length >= 2){
                         calculatePowerFromArgs(args);
                     }else{
                         try{
-                            System.out.print("Введите основание (X): ");
+                            System.out.print("Введите основание X: ");
                             String xStr = scanner.nextLine().trim();
-                            System.out.print("Введите показатель степени (Y): ");
+                            System.out.print("Введите показатель степени Y: ");
                             String yStr = scanner.nextLine().trim();
                             double result = PowerCalculator.calculatePowerSafe(xStr,yStr);
                             System.out.println("Ответ: ");
@@ -519,6 +516,100 @@ public class Main {
                     System.out.println("Координаты одинаковы: " + original.equals(clone));
                     if (scanner.hasNextLine()) {
                         scanner.nextLine();
+                    }
+                    break;
+                }
+                case "6.5":{
+                    try {
+                        String from = Validator.readAndValidCityName(scanner, "Введите название 1 города: ");
+                        System.out.println("Выберите тип дороги:");
+                        System.out.println("1 - Односторонняя дорога");
+                        System.out.println("2 - Двусторонняя дорога");
+                        System.out.print("Ваш выбор: ");
+                        String typeChoice = scanner.nextLine();
+                        int type = Validator.validPositiveNumber(typeChoice);
+                        City city1;
+                        if (type == 1) {
+                            city1 = new City(from);
+                            System.out.println("Обычный город " + city1.getName() + " создан");
+                        } else {
+                            city1 = new BidirectionalCity(from);
+                            System.out.println("Двусторонний город " + city1.getName() + " создан");
+                        }
+                        System.out.print("Сколько ввести дорог для города: ");
+                        String roadCountInput = scanner.nextLine();
+                        int roadCount = Validator.validPositiveNumber(roadCountInput);
+                        for (int i = 1; i <= roadCount; i++) {
+                            System.out.println("Добавление дороги: " + i + " из " + roadCount + " : ");
+                            String toCity = Validator.readAndValidCityName(scanner, "Введите город назначения: ");
+                            Validator.validDifferentCity(from, toCity);
+                            System.out.print("Введите стоимость: ");
+                            String costInput = scanner.nextLine();
+                            int cost = Validator.validPositiveNumber(costInput);
+                            try {
+                                City targetCity = new City(toCity);
+                                city1.addRoad(targetCity, cost);
+                                System.out.println("  Дорога " + city1.getName() + " → " + toCity + " (" + cost + ") добавлена");
+                            } catch (Exception e) {
+                                System.out.println("Ошибка: " + e.getMessage());
+                            }
+                        }
+                        System.out.println();
+                        String from1 = Validator.readAndValidCityName(scanner, "Введите название 2 города: ");
+                        System.out.println("Выберите тип дороги:");
+                        System.out.println("1 - Односторонняя дорога");
+                        System.out.println("2 - Двусторонняя дорога");
+                        System.out.print("Ваш выбор: ");
+                        String typeChoice1 = scanner.nextLine();
+                        int type1 = Validator.validPositiveNumber(typeChoice1);
+                        City city2;
+                        if (type1 == 1) {
+                            city2 = new City(from1);
+                            System.out.println("Обычный город " + city2.getName() + " создан");
+                        } else {
+                            city2 = new BidirectionalCity(from1);
+                            System.out.println("Двусторонний город " + city2.getName() + " создан");
+                        }
+                        System.out.print("Сколько ввести дорог для города: ");
+                        String roadCountInput1 = scanner.nextLine();
+                        int roadCount1 = Validator.validPositiveNumber(roadCountInput1);
+                        for (int i = 1; i <= roadCount1; i++) {
+                            System.out.println("Добавление дороги: " + i + " из " + roadCount1 + " : ");
+                            String toCity = Validator.readAndValidCityName(scanner, "Введите город назначения: ");
+                            Validator.validDifferentCity(from1, toCity);
+                            System.out.print("Введите стоимость: ");
+                            String costInput = scanner.nextLine();
+                            int cost = Validator.validPositiveNumber(costInput);
+                            try {
+                                City targetCity = new City(toCity);
+                                city2.addRoad(targetCity, cost);
+                                System.out.println("  Дорога " + city2.getName() + " → " + toCity + " (" + cost + ") добавлена");
+                            } catch (Exception e) {
+                                System.out.println("Ошибка: " + e.getMessage());
+                            }
+                        }
+
+                        System.out.println("Сравнение городов ");
+                        System.out.println();
+
+                        System.out.println("Город 1: " + city1);
+                        System.out.println("  Дороги: " + city1.getRoads());
+                        System.out.println();
+
+                        System.out.println("Город 2: " + city2);
+                        System.out.println("  Дороги: " + city2.getRoads());
+                        System.out.println();
+
+                        boolean areEqual = city1.equals(city2);
+                        System.out.println("Результат сравнения: " + (areEqual ? "Города равны" : "Города разные"));
+
+                        if (areEqual) {
+                            System.out.println("Города имеют идентичный набор дорог");
+                        } else {
+                            System.out.println("Наборы дорог различаются");
+                        }
+                    }catch (RoadSystemException e){
+                        System.out.println("Ошибка: " + e.getMessage());
                     }
                     break;
                 }
